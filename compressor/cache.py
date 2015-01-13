@@ -7,8 +7,8 @@ from django.core.files.base import ContentFile
 from django.utils import simplejson
 from django.utils.encoding import smart_str
 from django.utils.functional import SimpleLazyObject
-from django.utils.hashcompat import md5_constructor
 from django.utils.importlib import import_module
+import hashlib
 
 from compressor.conf import settings
 from compressor.storage import default_storage
@@ -18,7 +18,7 @@ _cachekey_func = None
 
 
 def get_hexdigest(plaintext, length=None):
-    digest = md5_constructor(smart_str(plaintext)).hexdigest()
+    digest = hashlib.md5(smart_str(plaintext)).hexdigest()
     if length:
         return digest[:length]
     return digest
